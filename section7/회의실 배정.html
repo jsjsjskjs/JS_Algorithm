@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(meeting) {
+        //회의는 한 번 시작하면 멈출 수 없고 회의가 끝나는 동시에 다른 회의 시작가능
+        //회의가 겹치지 않게 하면서 회의실을 사용할 수 있는 최대수
+        let sortedArr = meeting
+        let count = 0
+        sortedArr.sort((a, b) => {
+          if (a[1] === b[1]) return a[0] - b[0]
+          else return a[1] - b[1]
+        })
+        let endTime = 0
+        sortedArr.map((el) => {
+          if (el[0] >= endTime) {
+            count++
+            endTime = el[1]
+          }
+        })
+        return count
+      }
+
+      let arr = [
+        [1, 4],
+        [2, 3],
+        [3, 5],
+        [4, 6],
+        [5, 7]
+      ]
+      console.log(solution(arr))
+    </script>
+  </body>
+</html>
