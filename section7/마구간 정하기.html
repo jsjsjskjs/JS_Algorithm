@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(c, stable) {
+        //말끼리 가질 수 있는 거리의 범위를 정해준다
+        let sortedArr = stable.sort((a, b) => a - b)
+        let lt = 1
+        let rt = sortedArr[sortedArr.length - 1]
+        let checkHorseNumber = (arr, distance) => {
+          let point = arr[0]
+          let count = 1
+          for (let n = 1; n < arr.length; n++) {
+            if (arr[n] - point >= distance) {
+              point = arr[n]
+              count++
+            }
+          }
+          return count
+        }
+        let answer
+        while (lt <= rt) {
+          let mid = parseInt((lt + rt) / 2)
+          if (checkHorseNumber(stable, mid) >= c) {
+            answer = mid
+            lt = mid + 1
+          } else rt = mid - 1
+        }
+        return answer
+      }
+
+      let arr = [1, 2, 8, 4, 9]
+      console.log(solution(3, arr))
+    </script>
+  </body>
+</html>

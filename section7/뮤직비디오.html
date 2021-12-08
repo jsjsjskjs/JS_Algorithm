@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(m, songs) {
+        // 우선 갯수에 상관없이 만들 수 있는 DVD의 용량 크기 범위를 잡아주자
+        // 9~45까지
+        // 담을 수 있는 용량이 m보다 작거나 같다면 언제나 가능
+        let lt = Math.max(...songs)
+        let rt = songs.reduce((el1, el2) => el1 + el2)
+        let sizeCheck = (bucketSize, arr) => {
+          let count = 1
+          let sum = 0
+          for (let n = 0; n < arr.length; n++) {
+            if (sum + arr[n] > bucketSize) {
+              count++
+              sum = arr[n]
+            } else {
+              sum += arr[n]
+            }
+          }
+          return count
+        }
+        let answer
+        while (lt <= rt) {
+          let mid = parseInt((lt + rt) / 2)
+          if (sizeCheck(mid, songs) <= m) {
+            answer = mid
+            rt = mid - 1
+          } else {
+            lt = mid + 1
+          }
+        }
+        return answer
+      }
+
+      let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      console.log(solution(3, arr))
+    </script>
+  </body>
+</html>
